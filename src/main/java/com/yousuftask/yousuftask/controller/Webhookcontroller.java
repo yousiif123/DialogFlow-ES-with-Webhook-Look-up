@@ -22,6 +22,11 @@ public class Webhookcontroller {
 
     @PostMapping("/webhook")
 public WebhookResponse handleWebhookRequest(@RequestBody WebhookRequest request) {
+    
+    
+    
+    // Extract order ID from request
+    String orderId = request.getOrderId();
 
     String apiUrl = "https://orderstatusapi-dot-organization-project-311520.uc.r.appspot.com/api/getOrderStatus";
     
@@ -33,10 +38,8 @@ public WebhookResponse handleWebhookRequest(@RequestBody WebhookRequest request)
         JSONObject jsonObject = new JSONObject(responseBody);
         String shipmentDate = jsonObject.getString("shipmentDate");
         
-        // Convert the shipmentDate string to LocalDateTime
+        // Convert shipmentDate
         LocalDateTime dateTime = LocalDateTime.parse(shipmentDate, DateTimeFormatter.ISO_DATE_TIME);
-        
-        // Format the LocalDateTime to the desired format
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, dd MMM yyyy");
         shipmentDateFormatted = dateTime.format(formatter);
     } else {
@@ -45,7 +48,7 @@ public WebhookResponse handleWebhookRequest(@RequestBody WebhookRequest request)
 
     //Response
     WebhookResponse response = new WebhookResponse();
-    response.setShipmentDate(shipmentDateFormatted);
+    response.setMessage("Your order " + orderId + " will be delivered on " + shipmentDateFormatted);
     return response;
 }
 }

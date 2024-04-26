@@ -1,14 +1,14 @@
 package com.yousuftask.yousuftask.model;
 
 public class WebhookResponse {
-    private String shipmentDate;
+    private String Message;
 
-    public String getShipmentDate() {
-        return shipmentDate;
+    public String getMessage() {
+        return Message;
     }
 
-    public void setShipmentDate(String shipmentDate) {
-        this.shipmentDate = shipmentDate;
+    public void setMessage(String Message) {
+        this.Message = Message;
     }
 }
 
